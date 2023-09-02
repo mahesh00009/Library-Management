@@ -1,0 +1,47 @@
+*{
+  margin : 0;
+  padding : 0;
+  box-sizing: border-box;
+}
+
+body{
+  background: url('https://img.freepik.com/free-vector/background-luxury-minimalist-gradient-style-design_698780-685.jpg?w=1060&t=st=1693428503~exp=1693429103~hmac=eabc4063c4fe1e4a2e46ca31acebc3dbf85ea080aa9d7cb0bcdd7717a5940825')  center/ cover no-repeat;
+  min-width: 550px;
+
+  user-select: none;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
