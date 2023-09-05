@@ -55,7 +55,7 @@ const NavBar = ({setCategoryClicked}) => {
               }}
             >
               {
-                <Button variant='contained' color = "primary"  startIcon={< ArrowBackIosIcon/> } onClick={categoryClickedHandler}>Go Back</Button>
+                <Button variant='contained' color = "primary"  startIcon={< ArrowBackIosIcon/> } onClick={categoryClickedHandler}>Show Products</Button>
               }
 
               <Link to="/cart" style = {{display: "flex", color : "white", gap : "10px", textDecoration: "none"}}>

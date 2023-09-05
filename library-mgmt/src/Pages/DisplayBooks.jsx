@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 const DisplayBooks = ({ elem }) => {
   const FilteredBooks = Books.filter((item) => item.category === elem);
   const dispatch = useDispatch()
+
   const store = useSelector((store) => store.items)
 
   const addToCartHandler = (elem) => {
@@ -15,6 +16,7 @@ const DisplayBooks = ({ elem }) => {
     toast.success("Added to Cart 🛒")
   }
 
+  console.log(store)
   return (
     <Box
       sx={{
@@ -29,15 +31,17 @@ const DisplayBooks = ({ elem }) => {
     >
       <Typography variant="h3">{elem} Books</Typography>
 
-      <Box sx={{ display: "flex", gap: "20px" ,    justifyContent:"center",     flexWrap: "wrap",
+      <Box sx={{ display: "flex", gap: "20px" , justifyContent:"center",     flexWrap: "wrap",
 }}>
         {FilteredBooks.map((elem, i) => {
           return (
             <Box key = {i} sx={{ display: "flex", flexDirection: "column" }}>
               <img src={elem.Book_Url} width={270} height={400} alt="" />
 
-              <Button variant="contained" color="primary" onClick={addToCartHandler.bind(this, elem)}>
-                Add To Cart
+              <Typography>{`Price : $${elem.price}`}</Typography>
+              <Button variant="contained" color="primary" onClick={addToCartHandler.bind(this, elem)} disabled ={store.map((book, id) => book.id).includes(elem.id)} >
+
+                {store.map((book, id) => book.id).includes(elem.id) ? "Added To Cart" : "Add To Cart"}
               </Button>
             </Box>
           );
@@ -46,7 +50,6 @@ const DisplayBooks = ({ elem }) => {
       <ToastContainer
        position = "top-center"
        autoClose  = {1500}
-       
        />
     </Box>
   );
