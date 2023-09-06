@@ -118,6 +118,7 @@ const Login = () => {
       >
         {pathname === "/login" ? (
           <Formik 
+          enableReinitialize
           initialValues={loginInitialValues}
           validationSchema={LoginValidationSchema}
           >
@@ -176,6 +177,7 @@ const Login = () => {
           </Formik>
         ) : (
           <Formik 
+          enableReinitialize
           initialValues={signupInitialValues}
           validationSchema={SignupValidationSchema}
           >
