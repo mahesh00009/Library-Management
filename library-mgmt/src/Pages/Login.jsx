@@ -254,9 +254,7 @@ const Login = () => {
                       style={{ width: "80%" }}
                       onChange={handleChange}
                       onBlur={handleBlur}
-
-
-                    />
+                   />
 
 { touched?.email && errors?.email && <Typography sx={{color :"red"}}>{errors?.email}</Typography>}
 

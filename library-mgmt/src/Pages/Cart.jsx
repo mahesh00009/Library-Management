@@ -1,14 +1,27 @@
 import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import NavBar from "./NavBar";
+import { decrementItem, incrementItem, removeItem } from "../Redux/ActionTypes";
 
 const Cart = ({ setCategoryClicked = null }) => {
-  const store = useSelector((store) => store.items);
 
-  console.log(setCategoryClicked);
+  const store = useSelector((store) => store.items);
+  const dispatch = useDispatch();
+
+
+  const incrementItemHandler = (id) => {
+  console.log(store)
+
+    dispatch(incrementItem(id))
+  }
+
+  const decrementItemHandler = (id) => {
+
+    dispatch(decrementItem(id))
+  }
+
   return (
     <Box>
       <NavBar />
@@ -25,17 +38,28 @@ const Cart = ({ setCategoryClicked = null }) => {
               flexDirection: "column",
               gap: "20px",
               flexWrap: "wrap",
-              flexGrow: 3            }}
+              flexGrow: 3 
+            }}
           >
             {store.map((item, index) => {
               return (
-                <Box key={index} sx={{ display: "flex", alignItems: "center" , gap : "20px", width: "600px"}}>
+                <Box key={index} sx={{ display: "flex", 
+                alignItems: "center" , 
+                gap : "20px",
+                 width: "700px",
+                 boxShadow : "12px 0 30px gray"
+
+                 
+                 }}>
                   <img src={item.Book_Url} width={200} height={300}></img>
                   <Box
                     sx={{
                       display: "flex",
                       flexDirection: "column",
                       gap: "20px",
+                      width: "350px", 
+                      padding: "20px 30px",
+                      boxShadow: "5px 5px 20px gray"
                     }}
                   >
                     <Typography variant="h5">
@@ -50,6 +74,10 @@ const Cart = ({ setCategoryClicked = null }) => {
 
                     <Typography>Price : $ {item.price}</Typography>
 
+                    <Typography>Total Price : $ {item.totalPrice}</Typography>
+
+                    
+
                     <Box
                       sx={{
                         display: "flex",
@@ -60,12 +88,14 @@ const Cart = ({ setCategoryClicked = null }) => {
                         color: "white",
                       }}
                     >
-                      <Typography variant="h6"> - </Typography>
-                      <Typography variant="h5">{1}</Typography>
-                      <Typography variant="h6"> + </Typography>
+                      <Typography variant="h6" sx={{ cursor : "pointer", padding : "0 30px"}} onClick = {() => decrementItemHandler(item.id)}> - </Typography>
+
+                      <Typography variant="h5">{item.totalItem}</Typography>
+
+                      <Typography variant="h6" sx = {{ cursor : "pointer" , padding : "0 30px"}} onClick ={() => incrementItemHandler(item.id)}> + </Typography>
                     </Box>
 
-                    <Button variant = "contained" color="error">Delete Item</Button>
+                    <Button variant = "contained" color="error" onClick={() => dispatch(removeItem(item.id))}>Delete Item</Button>   
 
                   </Box>
                 </Box>
@@ -77,10 +107,13 @@ const Cart = ({ setCategoryClicked = null }) => {
           >
             <Typography variant="h4">Total</Typography>
             <Typography variant="h5">
-              Total Items in Cart : {store.length}
+
+              Total Items in Cart : {store.map((item) => item.totalItem).reduce((acc, elem) => acc + Number(elem), 0)}
+
             </Typography>
 
-            <Typography variant="h5" >Grand Total : $ {store.map((item) => item.price).reduce((acc, elem) => acc + Number(elem), 0)} </Typography>
+            <Typography variant="h5" >Grand Total : $ {store.map((item) => item.totalPrice).reduce((acc, elem) => acc + Number(elem), 0)} </Typography>
+
           </Box>
         </Box>
       ) : (
@@ -88,7 +121,6 @@ const Cart = ({ setCategoryClicked = null }) => {
           variant="h3"
           sx={{ textAlign: "center", backgroundColor: "yellow" }}
         >
-          {" "}
           oops! Nothing in cart 🥺 <Link to="/"> Click to add items</Link>{" "}
         </Typography>
       )}
